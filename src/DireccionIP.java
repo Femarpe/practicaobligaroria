@@ -8,12 +8,12 @@ public class DireccionIP {
 
     char claseIp;
 
-    boolean esidDeRed = false;
-    boolean esprivada = false;
+    boolean esidDeRed;
+    boolean esprivada;
     boolean sonDeLaMismaRed;
 
     public DireccionIP(String stringip) {
-        ipp = stringip.split(".");
+        ipp = stringip.split(",");
         for (int i = 0; i < 4; i++) {
             ip[i] = Integer.parseInt(ipp[i]);
         }
@@ -58,6 +58,9 @@ public class DireccionIP {
         if (ip[3] == 0) {
             esidDeRed = true;
         }
+        else {
+            esidDeRed = false;
+        }
 
         //la id de esa red
 
@@ -98,32 +101,38 @@ public class DireccionIP {
         else if (claseIp == 'C' && ip[0] == 192 && ip[1] == 168) {
             esprivada = true;
         }
+        else {
+            esprivada = false;
+        }
     }
 
     public String infoIP() {
         String informacionDeIP;
         informacionDeIP =
                 "La IP introducida es:" + ip[0] + "." + ip[1] + "." + ip[2] + "." + ip[3] + "\n"
-                + "la red es de clase" + claseIp + "\n";
+                + "la red es de clase: " + claseIp + "\n";
 
-        if (esidDeRed = true) {
+        if (esidDeRed == true) {
             informacionDeIP += "La IP introducida es una id de red \n";
         }
-        else if (esidDeRed = false) {
+        else if (esidDeRed == false) {
             informacionDeIP += "La IP introducida no es una id de red \n";
         }
-        informacionDeIP =
+        informacionDeIP +=
                 "La id de la red es:" + ideDeRed[0] + "." + ideDeRed[1] + "." + ideDeRed[2] + "." + ideDeRed[3] + "\n"
                 +"La mascara de red es:" + mascaraDeRed[0] + "." + mascaraDeRed[1] + "." + mascaraDeRed[2] + "." + mascaraDeRed[3] + "\n";
 
-        if (esprivada = true) {
+        if (esprivada == true) {
             informacionDeIP += "La IP introducida es una red privada";
         }
-        else if (esprivada = false) {
+        else if (esprivada == false) {
             informacionDeIP += "La IP introducida es una red publica";
         }
         return informacionDeIP;
     }
+
+    //Comprobar 2 direcciones ip
+
     public boolean compararIp(String primeraIp, String segundaIp){
 
         String primeraIpArray [] = new String[4];
@@ -135,11 +144,11 @@ public class DireccionIP {
         char claseIpUno = 'A';
         char claseIpDos = 'A';
 
-        primeraIpArray = primeraIp.split(".");
+        primeraIpArray = primeraIp.split(",");
         for (int i = 0; i < 4; i++) {
             ipUno[i] = Integer.parseInt(primeraIpArray[i]);
         }
-        segundaIpArray = segundaIp.split(".");
+        segundaIpArray = segundaIp.split(",");
         for (int i = 0; i < 4; i++) {
             ipDos[i] = Integer.parseInt(segundaIpArray[i]);
         }
@@ -183,6 +192,7 @@ public class DireccionIP {
             return false;
         }
     }
+
 }
 
 
