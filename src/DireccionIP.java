@@ -10,6 +10,7 @@ public class DireccionIP {
 
     boolean esidDeRed = false;
     boolean esprivada = false;
+    boolean sonDeLaMismaRed;
 
     public DireccionIP(String stringip) {
         ipp = stringip.split(".");
@@ -122,6 +123,65 @@ public class DireccionIP {
             informacionDeIP += "La IP introducida es una red publica";
         }
         return informacionDeIP;
+    }
+    public boolean compararIp(String primeraIp, String segundaIp){
+
+        String primeraIpArray [] = new String[4];
+        String segundaIpArray [] = new String[4];
+
+        int ipUno [] = new int[4];
+        int ipDos [] = new int[4];
+
+        char claseIpUno = 'A';
+        char claseIpDos = 'A';
+
+        primeraIpArray = primeraIp.split(".");
+        for (int i = 0; i < 4; i++) {
+            ipUno[i] = Integer.parseInt(primeraIpArray[i]);
+        }
+        segundaIpArray = segundaIp.split(".");
+        for (int i = 0; i < 4; i++) {
+            ipDos[i] = Integer.parseInt(segundaIpArray[i]);
+        }
+
+        //Definir la clase de la ip 1
+
+        if (ipUno[0] < 128) {
+            claseIpUno = 'A';
+        }
+        else if (ipUno[0] > 127 && ip[0] < 192) {
+            claseIpUno = 'B';
+        }
+        else if (ipUno[0] > 191 && ip[0] < 224) {
+            claseIpUno = 'C';
+        }
+
+        //Definir la clase de la ip 2
+
+        if (ipDos[0] < 128) {
+            claseIpDos = 'A';
+        }
+        else if (ipDos[0] > 127 && ip[0] < 192) {
+            claseIpDos = 'B';
+        }
+        else if (ipDos[0] > 191 && ip[0] < 224) {
+            claseIpDos = 'C';
+        }
+
+        //comparar si son de la misma red
+
+        if (claseIpUno == 'A' && claseIpUno == claseIpDos && ipUno[0] == ipDos[0] ) {
+            return true;
+        }
+        else if (claseIpUno == 'B' && claseIpUno == claseIpDos && ipUno[0] == ipDos[0] && ipUno[1] == ipDos[1]) {
+            return true;
+        }
+        else if (claseIpUno == 'C' && claseIpUno == claseIpDos && ipUno[0] == ipDos[0] && ipUno[1] == ipDos[1] && ipUno[2] == ipDos[2] ) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
 
